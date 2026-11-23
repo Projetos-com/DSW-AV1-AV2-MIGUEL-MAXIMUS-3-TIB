@@ -8,7 +8,7 @@ Passo a passo de cada requisição para mostrar ao professor: método, URL, cabe
 2. No Insomnia, crie uma **Collection** chamada "Reserva de Equipamentos".
 3. **Base URL:**
    - local: `http://localhost:3333/api`
-   - publicada: `https://SEU-SERVICO.onrender.com/api`
+   - publicada: `https://reservas-api-160g.onrender.com/api`
 4. Dica: crie um **Environment** (ícone de engrenagem/"Base Environment") com:
    ```json
    {

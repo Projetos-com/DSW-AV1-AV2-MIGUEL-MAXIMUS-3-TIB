@@ -11,8 +11,11 @@ Aplicação web full stack para **reservar equipamentos compartilhados da escola
 > Trabalho de DSW – AV1 (backend) e AV2 (frontend e publicação) – 4º bimestre.
 > Aluno: **Miguel Maximus** – 3º TIB.
 
-- **Aplicação publicada:** `https://SEU-PROJETO.vercel.app` _(preencher após o deploy)_
-- **API publicada:** `https://SEU-SERVICO.onrender.com/api/saude` _(preencher após o deploy)_
+- **Aplicação publicada (Vercel):** https://reserva-equipamentos-miguel.vercel.app
+- **API publicada (Render):** https://reservas-api-160g.onrender.com/api (teste: [`/api/saude`](https://reservas-api-160g.onrender.com/api/saude))
+- **Banco de dados:** PostgreSQL gerenciado no Render (`reservas-db`), acessado só pela API.
+
+> A API usa o plano gratuito do Render e "dorme" após 15 min sem uso: o primeiro acesso pode demorar até 1 minuto.
 
 ---
 
