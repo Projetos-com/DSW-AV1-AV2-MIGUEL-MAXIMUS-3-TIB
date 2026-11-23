@@ -1,0 +1,59 @@
+// Modelagem do banco de dados (PostgreSQL) usando Prisma ORM 7.10
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Perfis de acesso do sistema
+enum Papel {
+  ADMIN // gerencia equipamentos e vê todas as reservas
+  USUARIO // reserva equipamentos e gerencia apenas as próprias reservas
+}
+
+model Usuario {
+  id        Int       @id @default(autoincrement())
+  nome      String    @db.VarChar(100)
+  email     String    @unique @db.VarChar(150)
+  senhaHash String    @map("senha_hash")
+  papel     Papel     @default(USUARIO)
+  criadoEm  DateTime  @default(now()) @map("criado_em")
+  reservas  Reserva[]
+
+  @@map("usuarios")
+}
+
+model Equipamento {
+  id           Int       @id @default(autoincrement())
+  nome         String    @db.VarChar(100)
+  categoria    String    @db.VarChar(60)
+  patrimonio   String    @unique @db.VarChar(30) // código de patrimônio da escola
+  descricao    String?   @db.VarChar(500)
+  ativo        Boolean   @default(true) // equipamento em manutenção = inativo
+  criadoEm     DateTime  @default(now()) @map("criado_em")
+  atualizadoEm DateTime  @updatedAt @map("atualizado_em")
+  reservas     Reserva[]
+
+  @@map("equipamentos")
+}
+
+model Reserva {
+  id            Int         @id @default(autoincrement())
+  inicio        DateTime
+  fim           DateTime
+  finalidade    String      @db.VarChar(200)
+  criadoEm      DateTime    @default(now()) @map("criado_em")
+  atualizadoEm  DateTime    @updatedAt @map("atualizado_em")
+  usuarioId     Int         @map("usuario_id")
+  equipamentoId Int         @map("equipamento_id")
+  usuario       Usuario     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  equipamento   Equipamento @relation(fields: [equipamentoId], references: [id], onDelete: Restrict)
+
+  @@index([equipamentoId, inicio, fim])
+  @@map("reservas")
+}

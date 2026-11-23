@@ -1,0 +1,41 @@
+/* Tailwind CSS 4.3: importação única, sem arquivo tailwind.config.js */
+@import "tailwindcss";
+
+/* Tokens do tema (Tailwind 4 usa @theme para criar classes como bg-marca-600) */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-marca-50: oklch(0.962 0.018 272.314);
+  --color-marca-100: oklch(0.93 0.034 272.788);
+  --color-marca-500: oklch(0.585 0.233 277.117);
+  --color-marca-600: oklch(0.511 0.262 276.966);
+  --color-marca-700: oklch(0.457 0.24 277.023);
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased;
+  }
+}
+
+/* Classes reutilizáveis (Tailwind 4: @utility cria classes próprias que aceitam variantes) */
+@utility campo {
+  @apply block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-xs
+    placeholder:text-slate-400 focus:border-marca-500 focus:ring-2 focus:ring-marca-100 focus:outline-none
+    disabled:bg-slate-100;
+}
+@utility campo-erro {
+  @apply border-red-400 focus:border-red-500 focus:ring-red-100;
+}
+@utility btn {
+  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition
+    focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-primario {
+  @apply btn bg-marca-600 text-white hover:bg-marca-700 focus-visible:ring-marca-500;
+}
+@utility btn-secundario {
+  @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus-visible:ring-slate-400;
+}
+@utility btn-perigo {
+  @apply btn bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500;
+}
